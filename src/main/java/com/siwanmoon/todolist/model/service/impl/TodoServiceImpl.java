@@ -1,5 +1,7 @@
 package com.siwanmoon.todolist.model.service.impl;
 
+import static com.siwanmoon.todolist.constant.ErrorMessage.TODO_CONTENT_BLANK;
+
 import com.siwanmoon.todolist.model.Todo;
 import com.siwanmoon.todolist.model.TodoRepository;
 import com.siwanmoon.todolist.model.service.TodoService;
@@ -33,7 +35,7 @@ public class TodoServiceImpl implements TodoService {
 
     private void checkNotBlank(String content) {
         if (content == null || content.isBlank()) {
-            throw new IllegalArgumentException("내용을 입력해주세요.");
+            throw new IllegalArgumentException(TODO_CONTENT_BLANK.getMessage());
         }
     }
 }

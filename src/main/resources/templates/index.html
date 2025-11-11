@@ -6,7 +6,11 @@
 </head>
 <body>
 
-<h1>나의 투두리스트</h1>
+<h1>📝 나의 투두리스트</h1>
+
+<div th:if="${errorMessage != null}" style="color: red;">
+    <strong>Error:</strong> <span th:text="${errorMessage}">오류 메시지</span>
+</div>
 
 <form th:action="@{/add}" method="post">
     <input type="text" name="content" placeholder="새 할 일을 입력하세요" required>
@@ -16,15 +20,20 @@
 <hr>
 
 <h2>할 일 목록</h2>
+
 <ul>
     <li th:each="todo : ${todos}">
+
         <span th:text="${todo.content}">해야 할 일 내용</span>
-        <a th:href="@{/delete/{id}(id=${todo.id})}"> [삭제] </a>
+
+        <form th:action="@{/delete/{id}(id=${todo.id})}" method="post" style="display: inline;">
+            <button type="submit">[삭제]</button>
+        </form>
     </li>
 </ul>
 
 <p th:if="${todos.isEmpty()}">
-    아직 할 일이 없습니다!
+    🎉 아직 할 일이 없습니다!
 </p>
 
 </body>

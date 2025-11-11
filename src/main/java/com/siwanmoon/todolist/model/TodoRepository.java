@@ -1,18 +1,18 @@
 package com.siwanmoon.todolist.model;
 
-import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class Todos {
+@Repository
+public class TodoRepository {
 
     private final List<Todo> todoList = new ArrayList<>();
     private final AtomicLong idCounter = new AtomicLong();
 
-    public void add(String content) {
+    public void save(String content) {
         Long id = idCounter.incrementAndGet();
         Todo newTodo = new Todo(id, content);
         todoList.add(newTodo);

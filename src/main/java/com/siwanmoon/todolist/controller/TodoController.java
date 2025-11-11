@@ -1,37 +1,43 @@
 package com.siwanmoon.todolist.controller;
 
-import com.siwanmoon.todolist.model.Todos;
+import com.siwanmoon.todolist.model.service.TodoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class TodoController {
 
-    private final Todos todos;
+    private final TodoService todoService;
 
-    public TodoController(Todos todos) {
-        this.todos = todos;
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
     }
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("todos", todos.findAll());
+        model.addAttribute("todos", todoService.getTodos());
         return "index";
     }
 
     @PostMapping("/add")
-    public String addTodo(@RequestParam("content") String content) {
-        todos.add(content);
+    public String addTodo(@RequestParam("content") String content, RedirectAttributes redirectAttributes) {
+        try {
+            todoService.addTodo(content);
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+
         return "redirect:/";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteTodo(@PathVariable("id") Long id) {
-        todos.deleteById(id);
+        todoService.deleteTodo(id);
         return "redirect:/";
     }
 }

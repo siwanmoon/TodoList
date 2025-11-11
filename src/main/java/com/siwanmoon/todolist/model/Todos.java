@@ -14,7 +14,7 @@ public class Todos {
 
     public void add(String content) {
         Long id = idCounter.incrementAndGet();
-        Todo newTodo = new Todo(content);
+        Todo newTodo = new Todo(id, content);
         todoList.add(newTodo);
     }
 

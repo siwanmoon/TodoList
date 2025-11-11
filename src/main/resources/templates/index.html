@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>나의 투두리스트</title>
+</head>
+<body>
+
+<h1>나의 투두리스트</h1>
+
+<form th:action="@{/add}" method="post">
+    <input type="text" name="content" placeholder="새 할 일을 입력하세요" required>
+    <button type="submit">추가하기</button>
+</form>
+
+<hr>
+
+<h2>할 일 목록</h2>
+<ul>
+    <li th:each="todo : ${todos}">
+        <span th:text="${todo.content}">해야 할 일 내용</span>
+        <a th:href="@{/delete/{id}(id=${todo.id})}"> [삭제] </a>
+    </li>
+</ul>
+
+<p th:if="${todos.isEmpty()}">
+    아직 할 일이 없습니다!
+</p>
+
+</body>
+</html>

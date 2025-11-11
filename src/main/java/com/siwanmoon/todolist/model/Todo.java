@@ -11,7 +11,8 @@ public class Todo {
     private String content;
     private boolean completed;
 
-    public Todo(String content) {
+    public Todo(Long id, String content) {
+        this.id = id;
         this.content = content;
         this.completed = false;
     }

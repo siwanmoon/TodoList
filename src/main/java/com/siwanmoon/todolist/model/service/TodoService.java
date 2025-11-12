@@ -6,6 +6,6 @@ import java.util.List;
 public interface TodoService {
 
     List<Todo> getTodos();
-    void addTodo(String content);
+    void addTodo(String content, String dueDateInput);
     void deleteTodo(Long id);
 }

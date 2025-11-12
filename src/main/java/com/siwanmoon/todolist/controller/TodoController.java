@@ -25,9 +25,11 @@ public class TodoController {
     }
 
     @PostMapping("/add")
-    public String addTodo(@RequestParam("content") String content, RedirectAttributes redirectAttributes) {
+    public String addTodo(@RequestParam("content") String content,
+                          @RequestParam(value = "dueDate", required = false) String dueDateInput,
+                          RedirectAttributes redirectAttributes) {
         try {
-            todoService.addTodo(content);
+            todoService.addTodo(content, dueDateInput);
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }

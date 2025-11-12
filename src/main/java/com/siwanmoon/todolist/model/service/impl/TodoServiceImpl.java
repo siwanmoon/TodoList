@@ -5,6 +5,9 @@ import static com.siwanmoon.todolist.constant.ErrorMessage.TODO_CONTENT_BLANK;
 import com.siwanmoon.todolist.model.Todo;
 import com.siwanmoon.todolist.model.TodoRepository;
 import com.siwanmoon.todolist.model.service.TodoService;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +22,22 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> getTodos() {
-        return todoRepository.findAll();
+        List<Todo> todos = new ArrayList<>(todoRepository.findAll());
+
+        todos.sort(Comparator.comparing(Todo::getDueDate, Comparator.nullsLast(Comparator.naturalOrder())));
+
+        return todos;
     }
 
     @Override
-    public void addTodo(String content) {
-        todoRepository.save(content);
+    public void addTodo(String content, String dueDateInput) {
+        LocalDate dueDate = null;
+
+        if (dueDateInput != null && !dueDateInput.isBlank()) {
+            dueDate = LocalDate.parse(dueDateInput);
+        }
+
+        todoRepository.save(content, dueDate);
     }
 
     @Override

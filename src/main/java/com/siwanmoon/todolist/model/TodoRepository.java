@@ -1,5 +1,6 @@
 package com.siwanmoon.todolist.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,9 +13,9 @@ public class TodoRepository {
     private final List<Todo> todoList = new ArrayList<>();
     private final AtomicLong idCounter = new AtomicLong();
 
-    public void save(String content) {
+    public void save(String content, LocalDate dueDate) {
         Long id = idCounter.incrementAndGet();
-        Todo newTodo = new Todo(id, content);
+        Todo newTodo = new Todo(id, content, dueDate);
         todoList.add(newTodo);
     }
 

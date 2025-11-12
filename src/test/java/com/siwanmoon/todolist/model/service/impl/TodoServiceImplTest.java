@@ -40,8 +40,8 @@ class TodoServiceImplTest {
     @DisplayName("addTodo()에 유효한 내용(content)을 전달하면, repository의 save()가 1번 호출된다")
     void addTodo_withValidContent_shouldCallSave() {
         String content = "스프링 공부하기";
-        todoService.addTodo(content);
-        verify(todoRepository, times(1)).save(content);
+        todoService.addTodo(content, null);
+        verify(todoRepository, times(1)).save(content, null);
     }
 
     @ParameterizedTest
@@ -50,11 +50,11 @@ class TodoServiceImplTest {
     @DisplayName("addTodo()에 null이나 공백(blank)이 전달되면, IllegalArgumentException을 던진다")
     void addTodo_withNullOrBlankContent_shouldThrowException(String invalidContent) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            todoService.addTodo(invalidContent);
+            todoService.addTodo(invalidContent, null);
         });
 
         assertEquals("내용을 입력해주세요.", exception.getMessage());
-        verify(todoRepository, never()).save(anyString());
+        verify(todoRepository, never()).save(anyString(), null);
     }
 
     @Test

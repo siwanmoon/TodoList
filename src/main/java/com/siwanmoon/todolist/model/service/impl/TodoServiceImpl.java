@@ -24,18 +24,11 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void addTodo(String content) {
-        checkNotBlank(content);
         todoRepository.save(content);
     }
 
     @Override
     public void deleteTodo(Long id) {
         todoRepository.deleteById(id);
-    }
-
-    private void checkNotBlank(String content) {
-        if (content == null || content.isBlank()) {
-            throw new IllegalArgumentException(TODO_CONTENT_BLANK.getMessage());
-        }
     }
 }

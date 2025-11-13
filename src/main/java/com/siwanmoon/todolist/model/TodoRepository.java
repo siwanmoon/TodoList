@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +30,12 @@ public class TodoRepository {
 
     public void deleteById(Long id) {
         todoList.removeIf(todo -> todo.getId().equals(id));
+    }
+
+    public Optional<Todo> findById(Long id) {
+        return todoList.stream()
+                .filter(todo -> todo.getId().equals(id))
+                .findFirst();
     }
 
     private void validateSize (List<Todo> todoList) {

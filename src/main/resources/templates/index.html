@@ -30,12 +30,18 @@
 <ul>
     <li th:each="todo : ${todos}">
 
+        <span th:if="${todo.important}" style="color: #FFD700; font-size: 1.2em;">⭐</span>
+
         <span th:text="${todo.content}">해야 할 일 내용</span>
 
         <span th:if="${todo.dueDate != null}"
               th:text="' - (기한: ' + ${todo.dueDate} + ')'"
               style="font-style: italic; color: #555;">
             </span>
+
+        <form th:action="@{/toggle/{id}(id=${todo.id})}" method="post" style="display: inline;">
+            <button type="submit">[중요]</button>
+        </form>
 
         <form th:action="@{/delete/{id}(id=${todo.id})}" method="post" style="display: inline;">
             <input type="hidden" name="_method" value="delete" />

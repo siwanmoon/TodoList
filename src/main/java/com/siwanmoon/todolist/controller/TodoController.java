@@ -42,4 +42,16 @@ public class TodoController {
         todoService.deleteTodo(id);
         return "redirect:/";
     }
+
+    @PostMapping("/toggle/{id}")
+    public String toggleImportant(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            todoService.toggleImportant(id);
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+
+        return "redirect:/";
+    }
 }

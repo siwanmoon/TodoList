@@ -8,4 +8,5 @@ public interface TodoService {
     List<Todo> getTodos();
     void addTodo(String content, String dueDateInput);
     void deleteTodo(Long id);
+    void toggleImportant(Long id);
 }

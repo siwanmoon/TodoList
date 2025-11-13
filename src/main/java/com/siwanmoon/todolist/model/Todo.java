@@ -16,6 +16,7 @@ public class Todo {
     private String content;
     private boolean completed;
     private LocalDate dueDate;
+    private boolean important = false;
 
     public Todo(Long id, String content, LocalDate dueDate) {
         validateContent(content);
@@ -24,6 +25,10 @@ public class Todo {
         this.content = content;
         this.completed = false;
         this.dueDate = dueDate;
+    }
+
+    public void toggleImportant() {
+        this.important = !this.important;
     }
 
     private void validateContent(String content) {

@@ -44,4 +44,12 @@ public class TodoServiceImpl implements TodoService {
     public void deleteTodo(Long id) {
         todoRepository.deleteById(id);
     }
+
+    @Override
+    public void toggleImportant(Long id) {
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID에 해당하는 할 일을 찾을 수 없습니다: " + id));
+
+        todo.toggleImportant();
+    }
 }

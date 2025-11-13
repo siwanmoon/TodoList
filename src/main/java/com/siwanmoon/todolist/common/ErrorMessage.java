@@ -1,7 +1,7 @@
-package com.siwanmoon.todolist.constant;
+package com.siwanmoon.todolist.common;
 
-import static com.siwanmoon.todolist.constant.Strategy.MAX_CONTENT_LENGTH;
-import static com.siwanmoon.todolist.constant.Strategy.MAX_TODOLIST_SIZE;
+import static com.siwanmoon.todolist.common.Strategy.MAX_CONTENT_LENGTH;
+import static com.siwanmoon.todolist.common.Strategy.MAX_TODOLIST_SIZE;
 
 public enum ErrorMessage {
 

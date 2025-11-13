@@ -1,4 +1,4 @@
-package com.siwanmoon.todolist.constant;
+package com.siwanmoon.todolist.common;
 
 public class Strategy {
 

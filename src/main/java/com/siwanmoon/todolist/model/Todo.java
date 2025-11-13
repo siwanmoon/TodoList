@@ -1,8 +1,8 @@
 package com.siwanmoon.todolist.model;
 
-import static com.siwanmoon.todolist.constant.ErrorMessage.TODO_CONTENT_BLANK;
-import static com.siwanmoon.todolist.constant.ErrorMessage.TODO_CONTENT_LENGTH_OVERFLOW;
-import static com.siwanmoon.todolist.constant.Strategy.MAX_CONTENT_LENGTH;
+import static com.siwanmoon.todolist.common.ErrorMessage.TODO_CONTENT_BLANK;
+import static com.siwanmoon.todolist.common.ErrorMessage.TODO_CONTENT_LENGTH_OVERFLOW;
+import static com.siwanmoon.todolist.common.Strategy.MAX_CONTENT_LENGTH;
 
 import java.time.LocalDate;
 import lombok.Getter;

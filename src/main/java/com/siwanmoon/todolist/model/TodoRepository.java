@@ -1,7 +1,7 @@
 package com.siwanmoon.todolist.model;
 
-import static com.siwanmoon.todolist.constant.ErrorMessage.TODOLIST_MAX_SIZE_OVERFLOW;
-import static com.siwanmoon.todolist.constant.Strategy.MAX_TODOLIST_SIZE;
+import static com.siwanmoon.todolist.common.ErrorMessage.TODOLIST_MAX_SIZE_OVERFLOW;
+import static com.siwanmoon.todolist.common.Strategy.MAX_TODOLIST_SIZE;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

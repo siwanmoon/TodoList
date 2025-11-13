@@ -1,7 +1,5 @@
 package com.siwanmoon.todolist.model.service.impl;
 
-import static com.siwanmoon.todolist.constant.ErrorMessage.TODO_CONTENT_BLANK;
-
 import com.siwanmoon.todolist.model.Todo;
 import com.siwanmoon.todolist.model.TodoRepository;
 import com.siwanmoon.todolist.model.service.TodoService;

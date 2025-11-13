@@ -1,5 +1,7 @@
 package com.siwanmoon.todolist.model.service.impl;
 
+import static com.siwanmoon.todolist.common.ErrorMessage.TODO_ID_NOT_FOUND;
+
 import com.siwanmoon.todolist.model.Todo;
 import com.siwanmoon.todolist.model.TodoRepository;
 import com.siwanmoon.todolist.model.service.TodoService;
@@ -46,7 +48,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void toggleImportant(Long id) {
         Todo todo = todoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ID에 해당하는 할 일을 찾을 수 없습니다: " + id));
+                .orElseThrow(() -> new IllegalArgumentException(TODO_ID_NOT_FOUND.getMessage() + id));
 
         todo.toggleImportant();
     }

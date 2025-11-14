@@ -24,7 +24,11 @@ public class TodoServiceImpl implements TodoService {
     public List<Todo> getTodos() {
         List<Todo> todos = new ArrayList<>(todoRepository.findAll());
 
-        todos.sort(Comparator.comparing(Todo::getDueDate, Comparator.nullsLast(Comparator.naturalOrder())));
+        Comparator<Todo> byImportant = Comparator.comparing(Todo::isImportant).reversed();
+        Comparator<Todo> byDueDate = Comparator.comparing(Todo::getDueDate,
+                Comparator.nullsLast(Comparator.naturalOrder()));
+
+        todos.sort(byImportant.thenComparing(byDueDate));
 
         return todos;
     }

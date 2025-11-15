@@ -10,4 +10,6 @@ public interface TodoService {
     void deleteTodo(Long id);
     void toggleImportant(Long id);
     void toggleComplete(Long id);
+    Todo getTodoById(Long id);
+    void updateTodo(Long id, String content, String dueDateString);
 }

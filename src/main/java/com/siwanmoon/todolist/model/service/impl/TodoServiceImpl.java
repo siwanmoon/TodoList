@@ -65,4 +65,22 @@ public class TodoServiceImpl implements TodoService {
 
         todo.toggleComplete();
     }
+
+    @Override
+    public Todo getTodoById(Long id) {
+        return todoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(ID_MATCHING_CONTENT_NOT_FOUND.getMessage() + id));
+    }
+
+    @Override
+    public void updateTodo(Long id, String content, String dueDateString) {
+        Todo todo = getTodoById(id);
+
+        LocalDate dueDate = null;
+        if (dueDateString != null && !dueDateString.isBlank()) {
+            dueDate = LocalDate.parse(dueDateString);
+        }
+
+        todo.update(content, dueDate);
+    }
 }

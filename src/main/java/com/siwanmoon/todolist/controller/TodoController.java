@@ -1,5 +1,6 @@
 package com.siwanmoon.todolist.controller;
 
+import com.siwanmoon.todolist.model.Todo;
 import com.siwanmoon.todolist.model.service.TodoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +64,37 @@ public class TodoController {
             todoService.toggleComplete(id);
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editTodoForm(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            Todo todo = todoService.getTodoById(id);
+            model.addAttribute("todo", todo);
+            return "edit";
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateTodo(@PathVariable("id") Long id,
+                             @RequestParam("content") String content,
+                             @RequestParam(value = "dueDate", required = false) String dueDateString,
+                             RedirectAttributes redirectAttributes) {
+
+        try {
+            todoService.updateTodo(id, content, dueDateString);
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+
+            return "redirect:/edit/" + id;
         }
 
         return "redirect:/";

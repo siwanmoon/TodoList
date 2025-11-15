@@ -35,6 +35,13 @@ public class Todo {
         this.completed = !this.completed;
     }
 
+    public void update(String content, LocalDate dueDate) {
+        validateContent(content);
+
+        this.content = content;
+        this.dueDate = dueDate;
+    }
+
     private void validateContent(String content) {
         if (content == null || content.isBlank()) {
             throw new IllegalArgumentException(TODO_CONTENT_BLANK.getMessage());

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>할 일 수정</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ...;
+            background-color: #f4f7f6;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            }
+        .error-message {
+            color: #D8000C; background-color: #FFD2D2;
+            border: 1px solid #D8000C; padding: 10px;
+            border-radius: 5px; margin-bottom: 15px;
+        }
+        .edit-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            box-sizing: border-box; /* 패딩 포함 크기 계산 */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px; border: none; border-radius: 5px;
+            color: white; font-size: 16px; cursor: pointer;
+        }
+        .save-button { background-color: #007bff; }
+        .cancel-button { background-color: #6c757d; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<h1>📝 할 일 수정하기</h1>
+
+<div th:if="${errorMessage != null}" class="error-message">
+    <strong>Error:</strong> <span th:text="${errorMessage}">오류 메시지</span>
+</div>
+
+<form th:if="${todo != null}"
+      th:action="@{/edit/{id}(id=${todo.id})}"
+      method="post"
+      class="edit-form">
+
+    <div class="form-group">
+        <label for="content">할 일:</label>
+        <input type="text" id="content" name="content"
+               th:value="${todo.content}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="dueDate">기한:</label>
+        <input type="date" id="dueDate" name="dueDate"
+               th:value="${todo.dueDate}">
+    </div>
+
+    <button type="submit" class="save-button">저장하기</button>
+    <a th:href="@{/}" class="cancel-button">취소</a>
+</form>
+
+</body>
+</html>

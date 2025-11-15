@@ -1,5 +1,6 @@
 package com.siwanmoon.todolist.model.service.impl;
 
+import static com.siwanmoon.todolist.common.ErrorMessage.ID_MATCHING_CONTENT_NOT_FOUND;
 import static com.siwanmoon.todolist.common.ErrorMessage.TODO_ID_NOT_FOUND;
 
 import com.siwanmoon.todolist.model.Todo;
@@ -55,5 +56,13 @@ public class TodoServiceImpl implements TodoService {
                 .orElseThrow(() -> new IllegalArgumentException(TODO_ID_NOT_FOUND.getMessage() + id));
 
         todo.toggleImportant();
+    }
+
+    @Override
+    public void toggleComplete(Long id) {
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(ID_MATCHING_CONTENT_NOT_FOUND.getMessage() + id));
+
+        todo.toggleComplete();
     }
 }

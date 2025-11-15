@@ -9,4 +9,5 @@ public interface TodoService {
     void addTodo(String content, String dueDateInput);
     void deleteTodo(Long id);
     void toggleImportant(Long id);
+    void toggleComplete(Long id);
 }

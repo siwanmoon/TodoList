@@ -82,6 +82,7 @@
             align-items: center;
             gap: 10px;
             flex-wrap: wrap;
+            transition: background-color 0.2s;
         }
 
         li .content {
@@ -109,6 +110,13 @@
             font-size: 14px;
         }
 
+        .complete-form button {
+            background-color: #28a745;
+        }
+        .complete-form button:hover {
+            background-color: #218838;
+        }
+
         .important-form button {
             background-color: #6c757d;
         }
@@ -123,6 +131,15 @@
             background-color: #c82333;
         }
 
+        li.completed {
+            background-color: #f8f9fa;
+        }
+        .completed .content,
+        .completed .due-date {
+            text-decoration: line-through;
+            color: #888;
+        }
+
         .due-soon {
             color: #D8000C;
             font-weight: bold;
@@ -133,6 +150,17 @@
             font-style: italic;
             text-align: center;
             padding: 20px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
         }
     </style>
 </head>
@@ -146,7 +174,8 @@
 
 <form th:action="@{/add}" method="post" class="add-form">
 
-    <label for="content" class="sr-only">할 일:</label> <input type="text" id="content" name="content" placeholder="새 할 일을 입력하세요" required>
+    <label for="content" class="sr-only">할 일:</label>
+    <input type="text" id="content" name="content" placeholder="새 할 일을 입력하세요" required>
 
     <label for="dueDate">기한:</label>
     <input type="date" id="dueDate" name="dueDate">
@@ -160,7 +189,8 @@
 
 <ul>
     <li th:each="todo : ${todos}"
-        th:with="isUrgent = ${todo.dueDate != null && !todo.dueDate.isAfter(#temporals.createToday().plusDays(1))}">
+        th:with="isUrgent = ${todo.dueDate != null && !todo.dueDate.isAfter(#temporals.createToday().plusDays(1))}"
+        th:classappend="${todo.completed} ? 'completed' : ''">
 
         <span th:if="${todo.important}" class="star">⭐</span>
 
@@ -174,7 +204,11 @@
               th:text="' - (기한: ' + ${todo.dueDate} + ')'"
               class="due-date"
               th:classappend="${isUrgent} ? 'due-soon' : ''">
-                  </span>
+            </span>
+
+        <form th:action="@{/complete/{id}(id=${todo.id})}" method="post" class="complete-form">
+            <button type="submit">[완료]</button>
+        </form>
 
         <form th:action="@{/toggle/{id}(id=${todo.id})}" method="post" class="important-form">
             <button type="submit">[중요]</button>
@@ -191,6 +225,5 @@
     🎉 아직 할 일이 없습니다!
 </p>
 
-<style> .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; } </style>
 </body>
 </html>

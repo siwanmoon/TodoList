@@ -54,4 +54,17 @@ public class TodoController {
 
         return "redirect:/";
     }
+
+    @PostMapping("/complete/{id}")
+    public String toggleComplete(@PathVariable("id") Long id,
+                                 RedirectAttributes redirectAttributes) {
+
+        try {
+            todoService.toggleComplete(id);
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+
+        return "redirect:/";
+    }
 }

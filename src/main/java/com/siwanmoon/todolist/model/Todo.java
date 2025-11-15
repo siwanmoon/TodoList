@@ -31,6 +31,10 @@ public class Todo {
         this.important = !this.important;
     }
 
+    public void toggleComplete() {
+        this.completed = !this.completed;
+    }
+
     private void validateContent(String content) {
         if (content == null || content.isBlank()) {
             throw new IllegalArgumentException(TODO_CONTENT_BLANK.getMessage());
